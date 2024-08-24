@@ -28,10 +28,6 @@ const VideoPlayerPage = ({ params }: Props) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
-  const [previewPosition, setPreviewPosition] = useState<{
-    x: number;
-    y: number;
-  }>({ x: 0, y: 0 });
 
   const [products, setProducts] = React.useState<any>([]);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
@@ -109,8 +105,6 @@ const VideoPlayerPage = ({ params }: Props) => {
         y = touchEvent.touches[0].clientY - rect.top;
       }
 
-      setPreviewPosition({ x, y });
-
       // 메모리 내에서 캔버스 생성
       const canvas = document.createElement('canvas');
       canvas.width = 300;
@@ -165,7 +159,13 @@ const VideoPlayerPage = ({ params }: Props) => {
 
   const longPressEventHandlers = useLongPress(handleLongPress, {
     delay: 300,
-    onStart: () => console.log('Long press started'),
+    onStart: (longPressing) => {
+      if (longPressing) {
+        setIsPlaying(false);
+      } else {
+        setIsPlaying((p) => !p);
+      }
+    },
     onFinish: () => console.log('Long press finished'),
   });
 

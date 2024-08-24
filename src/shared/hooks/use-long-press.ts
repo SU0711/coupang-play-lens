@@ -3,8 +3,8 @@ import { useState, useCallback, useRef } from 'react';
 // Long press 훅에 사용할 옵션 타입 정의
 interface LongPressOptions {
   delay?: number; // Long press가 발생하기까지 기다릴 시간 (밀리초)
-  onStart?: () => void; // Long press가 시작될 때 호출되는 콜백
-  onFinish?: () => void; // Long press가 끝날 때 호출되는 콜백
+  onStart?: (longPressing?: boolean) => void; // Long press가 시작될 때 호출되는 콜백
+  onFinish?: (longPressing?: boolean) => void; // Long press가 끝날 때 호출되는 콜백
 }
 
 // Long press 훅 구현
@@ -17,7 +17,7 @@ const useLongPress = (
 
   const startLongPress = useCallback(
     (e?: any) => {
-      if (onStart) onStart(); // Optional: long press 시작시 호출될 함수
+      if (onStart) onStart(longPressing); // Optional: long press 시작시 호출될 함수
       setLongPressing(true);
       timeoutRef.current = setTimeout(() => {
         onLongPress(e);
@@ -31,7 +31,7 @@ const useLongPress = (
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    if (longPressing && onFinish) onFinish(); // Optional: long press 종료시 호출될 함수
+    if (longPressing && onFinish) onFinish(longPressing); // Optional: long press 종료시 호출될 함수
     setLongPressing(false);
   }, [longPressing, onFinish]);
 
