@@ -10,12 +10,17 @@
   },
   "dependencies": {
     "@google-cloud/vision": "^4.3.2",
+    "axios": "^1.7.5",
+    "cheerio": "^1.0.0",
+    "fake-useragent": "^1.0.1",
     "lucide-react": "^0.435.0",
     "next": "14.2.6",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-player": "^2.16.0"
   },
   "devDependencies": {
+    "@types/fake-useragent": "^1.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
