@@ -17,6 +17,8 @@ export interface Product {
 
 async function fetchCoupangHTML(searchQuery: string): Promise<string> {
   try {
+    // searchQuery 최대 7글자
+    searchQuery = searchQuery.slice(0, 7);
     // 쿠팡 검색 URL
     const url = `${process.env.COUPANG_URL}${encodeURIComponent(searchQuery)}`;
 
