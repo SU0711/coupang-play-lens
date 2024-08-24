@@ -161,6 +161,10 @@ const VideoPlayerPage = ({ params }: Props) => {
     }
   };
 
+  const onPayment = () => {
+    setProducts([]);
+  };
+
   const longPressEventHandlers = useLongPress(handleLongPress, {
     delay: 300,
     onStart: (longPressing) => {
@@ -238,7 +242,11 @@ const VideoPlayerPage = ({ params }: Props) => {
             </div>
           )}
           <Drawer open={!!products.length} onClose={() => setProducts([])}>
-            <Products products={products} isSimilar={isSimilar} />
+            <Products
+              products={products}
+              isSimilar={isSimilar}
+              onPayment={onPayment}
+            />
           </Drawer>
         </div>
       </div>
