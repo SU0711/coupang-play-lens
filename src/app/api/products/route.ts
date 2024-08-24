@@ -22,11 +22,17 @@ async function fetchCoupangHTML(searchQuery: string): Promise<string> {
 
     // axios를 사용하여 GET 요청 보내기
     const response = await axios.get(url, {
+      timeout: 3000,
       headers: {
         'User-Agent': fakeUa(),
         'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
       },
     });
+
+    // timeout이 발생하면 에러 발생
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch from Coupang');
+    }
 
     // 응답에서 HTML 내용 추출
     return response.data;
