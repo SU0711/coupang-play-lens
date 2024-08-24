@@ -8,6 +8,7 @@ import axios from 'axios';
 import Products from './products';
 import { Drawer } from '@/shared/components/drawer';
 import { useRouter } from 'next/navigation';
+import { Toast, useToast } from '@/shared/components/toast';
 
 const blobToFile = (blob: Blob, fileName: string): File => {
   return new File([blob], fileName, {
@@ -32,6 +33,8 @@ const VideoPlayerPage = ({ params }: Props) => {
   const [products, setProducts] = React.useState<any>([]);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isSimilar, setIsSimilar] = useState<boolean>(false);
+
+  const { toasts, addToast } = useToast();
 
   useEffect(() => {
     const player = videoRef.current?.getInternalPlayer() as HTMLVideoElement;
@@ -142,6 +145,7 @@ const VideoPlayerPage = ({ params }: Props) => {
               const res2 = await axios.get(`${domain}/api/products?q=${label}`);
               setProducts(res2.data);
             } catch (err) {
+              addToast('일치하는 상품이 없습니다.');
               console.error(
                 'Error during file upload or fetching products:',
                 err
@@ -177,64 +181,71 @@ const VideoPlayerPage = ({ params }: Props) => {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col">
-      <button className="fixed top-4 left-4 z-50" onClick={onBack}>
-        <ChevronLeft size={32} />
-      </button>
-      <div className="flex-grow">
-        <ReactPlayer
-          ref={videoRef}
-          className="w-full h-full object-contain"
-          url={`/videos/video${videoId}.mp4`}
-          playing={isPlaying}
-          onProgress={({ playedSeconds }) => setCurrentTime(playedSeconds)}
-          width="100%"
-          height="100%"
-          {...longPressEventHandlers}
-        />
-      </div>
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-gray-900">
-        <div className="flex items-center justify-between mb-2">
-          <button onClick={togglePlay} className="text-2xl">
-            {isPlaying ? <Pause /> : <Play />}
-          </button>
-          <div className="flex items-center space-x-2">
-            <SkipBack
-              className="cursor-pointer"
-              onClick={() => {
-                if (videoRef.current) videoRef.current.seekTo(currentTime - 10);
-              }}
-            />
-            <SkipForward
-              className="cursor-pointer"
-              onClick={() => {
-                if (videoRef.current) videoRef.current.seekTo(currentTime + 10);
-              }}
-            />
-          </div>
-        </div>
-        <div className="bg-gray-700 h-1 cursor-pointer" onClick={handleSeek}>
-          <div
-            className="bg-red-600 h-full"
-            style={{ width: `${(currentTime / duration) * 100}%` }}
+    <>
+      <div className="bg-black text-white min-h-screen flex flex-col">
+        <button className="fixed top-4 left-4 z-50" onClick={onBack}>
+          <ChevronLeft size={32} />
+        </button>
+        <div className="flex-grow flex items-center">
+          <ReactPlayer
+            ref={videoRef}
+            className="w-full h-full object-contain"
+            url={`/videos/video${videoId}.mp4`}
+            playing={isPlaying}
+            onProgress={({ playedSeconds }) => setCurrentTime(playedSeconds)}
+            width="100%"
+            height="100%"
+            {...longPressEventHandlers}
           />
         </div>
-        <div className="flex justify-between text-sm mt-1">
-          <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(duration)}</span>
+        <div className="fixed bottom-0 left-0 w-full p-4 bg-gray-900">
+          <div className="flex items-center justify-between mb-2">
+            <button onClick={togglePlay} className="text-2xl">
+              {isPlaying ? <Pause /> : <Play />}
+            </button>
+            <div className="flex items-center space-x-2">
+              <SkipBack
+                className="cursor-pointer"
+                onClick={() => {
+                  if (videoRef.current)
+                    videoRef.current.seekTo(currentTime - 10);
+                }}
+              />
+              <SkipForward
+                className="cursor-pointer"
+                onClick={() => {
+                  if (videoRef.current)
+                    videoRef.current.seekTo(currentTime + 10);
+                }}
+              />
+            </div>
+          </div>
+          <div className="bg-gray-700 h-1 cursor-pointer" onClick={handleSeek}>
+            <div
+              className="bg-red-600 h-full"
+              style={{ width: `${(currentTime / duration) * 100}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-sm mt-1">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+        </div>
+        <div className="absolute">
+          {isProcessing && (
+            <div className="text-xl fixed top-4 right-4 text-gray-200">
+              상품 조회 중..
+            </div>
+          )}
+          <Drawer open={!!products.length} onClose={() => setProducts([])}>
+            <Products products={products} isSimilar={isSimilar} />
+          </Drawer>
         </div>
       </div>
-      <div className="absolute">
-        {isProcessing && (
-          <div className="text-xl fixed top-4 right-4 text-gray-200">
-            상품 조회 중..
-          </div>
-        )}
-        <Drawer open={!!products.length} onClose={() => setProducts([])}>
-          <Products products={products} isSimilar={isSimilar} />
-        </Drawer>
-      </div>
-    </div>
+      {toasts.map((toast) => (
+        <Toast key={toast.id} message={toast.message} onClose={() => {}} />
+      ))}
+    </>
   );
 };
 
