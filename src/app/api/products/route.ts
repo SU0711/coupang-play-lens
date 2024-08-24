@@ -98,8 +98,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   // searchQuery 최대 7글자
-  searchQuery = searchQuery.slice(0, 7);
-  console.log(searchQuery);
+  // searchQuery = searchQuery.slice(0, 7);
+  // console.log(searchQuery);
 
   try {
     const products = await scrapeCoupang(searchQuery);
