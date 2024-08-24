@@ -17,8 +17,6 @@ export interface Product {
 
 async function fetchCoupangHTML(searchQuery: string): Promise<string> {
   try {
-    // searchQuery 최대 7글자
-    searchQuery = searchQuery.slice(0, 7);
     // 쿠팡 검색 URL
     const url = `${process.env.COUPANG_URL}${encodeURIComponent(searchQuery)}`;
 
@@ -84,7 +82,7 @@ async function scrapeCoupang(searchQuery: string): Promise<Product[]> {
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const searchQuery = new URL(req.url).searchParams.get('q');
+  let searchQuery = new URL(req.url).searchParams.get('q');
 
   if (!searchQuery) {
     return NextResponse.json(
@@ -92,6 +90,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       { status: 400 }
     );
   }
+
+  // searchQuery 최대 7글자
+  searchQuery = searchQuery.slice(0, 7);
+  console.log(searchQuery);
 
   try {
     const products = await scrapeCoupang(searchQuery);
