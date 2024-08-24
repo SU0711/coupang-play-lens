@@ -134,9 +134,10 @@ const VideoPlayerPage = ({ params }: Props) => {
             setIsProcessing(true);
 
             try {
+              const domain = new URL(window.location.href).origin;
               // 파일 업로드 후 레이블 가져오기
               const res1 = await axios.post(
-                `${process.env.API_DOMAIN}/api/get-label`,
+                `${domain}/api/get-label`,
                 formData
               );
               const label = res1.data.label;
@@ -144,9 +145,7 @@ const VideoPlayerPage = ({ params }: Props) => {
               setIsSimilar(!!res1.data?.isSimilar);
 
               // 레이블을 사용하여 제품 가져오기
-              const res2 = await axios.get(
-                `${process.env.API_DOMAIN}/api/products?q=${label}`
-              );
+              const res2 = await axios.get(`${domain}/api/products?q=${label}`);
               setProducts(res2.data);
             } catch (err) {
               console.error(
