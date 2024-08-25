@@ -97,9 +97,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     );
   }
 
-  // searchQuery 최대 7글자
-  // searchQuery = searchQuery.slice(0, 7);
-  // console.log(searchQuery);
+  // searchQuery 공백은 +로
+  searchQuery = searchQuery.trim();
+  searchQuery = searchQuery.replace(/\s/g, '+');
 
   try {
     const products = await scrapeCoupang(searchQuery);
