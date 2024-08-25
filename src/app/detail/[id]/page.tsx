@@ -110,17 +110,17 @@ const VideoPlayerPage = ({ params }: Props) => {
 
       // 메모리 내에서 캔버스 생성
       const canvas = document.createElement('canvas');
-      canvas.width = 300;
-      canvas.height = 300;
+      canvas.width = 350;
+      canvas.height = 350;
       const ctx = canvas.getContext('2d');
 
       if (ctx) {
-        const sx = (x / rect.width) * player.videoWidth - 150;
-        const sy = (y / rect.height) * player.videoHeight - 150;
-        const sWidth = 300;
-        const sHeight = 300;
+        const sx = (x / rect.width) * player.videoWidth - 175;
+        const sy = (y / rect.height) * player.videoHeight - 175;
+        const sWidth = 350;
+        const sHeight = 350;
 
-        ctx.drawImage(player, sx, sy, sWidth, sHeight, 0, 0, 300, 300);
+        ctx.drawImage(player, sx, sy, sWidth, sHeight, 0, 0, 350, 350);
 
         canvas.toBlob(async (blob) => {
           if (blob) {
