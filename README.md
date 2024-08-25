@@ -1,37 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Coupang Play Lens](https://coupang-play-lens.vercel.app)
 
-## Getting Started
+쿠팡 플레이 시청 중 상품을 길게 누르면 팝업을 띄워 쿠팡 내 관련 쇼핑 정보 및 간편 결제를 제공하는 서비스입니다.
 
-First, run the development server:
+소비자의 구매 여정 간소화, 자사 플랫폼간 연동 및 구매율 증진을 목표로 합니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Team
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| | | |
+| :---: | :---: | :--: |
+| [박도륜](https://github.com/ryxxn) | [이상수](https://github.com/SU0711) | [이주헌](https://github.com/yiricky1030) |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## Flow Chart
 
-To learn more about Next.js, take a look at the following resources:
+![image](https://github.com/user-attachments/assets/46735948-0abd-48ff-bc77-40fb0d4ef6cd)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Tech Stacks
+- Next.js
+- Google Vision API
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# coupang-play-lens
+## Screenshot
+
+![image](https://github.com/user-attachments/assets/16d41e1d-4e63-460e-b2f6-9cb8cb6492bb)
+
+![image](https://github.com/user-attachments/assets/a24f0d6c-499f-493b-96b0-9cdae88f389e)
+
+![image](https://github.com/user-attachments/assets/b445f9d5-15e5-465c-9224-4c9aa4bda035)
