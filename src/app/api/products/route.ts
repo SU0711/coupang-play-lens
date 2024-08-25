@@ -22,7 +22,7 @@ async function fetchCoupangHTML(searchQuery: string): Promise<string> {
 
     // axios를 사용하여 GET 요청 보내기
     const response = await axios.get(url, {
-      timeout: 3000,
+      timeout: 4000,
       headers: {
         'User-Agent': fakeUa(),
         'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
